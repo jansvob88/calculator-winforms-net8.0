@@ -31,20 +31,20 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			labelHistory = new Label();
 			labelEntry = new Label();
-			panelButtons = new Panel();
+			panelControls = new Panel();
 			labelMemoryValue = new Label();
-			labelMemoryMinus = new Label();
-			labelMemoryPlus = new Label();
+			labelMemorySubtract = new Label();
+			labelMemoryAdd = new Label();
 			labelMemoryClear = new Label();
 			labelMemoryRecall = new Label();
 			buttonClearEntry = new Button();
 			buttonClear = new Button();
 			buttonBackspace = new Button();
-			buttonPlus = new Button();
+			buttonAdd = new Button();
 			buttonEquals = new Button();
 			buttonDivide = new Button();
 			buttonMultiply = new Button();
-			buttonMinus = new Button();
+			buttonSubtract = new Button();
 			buttonComma = new Button();
 			buttonZero = new Button();
 			buttonSeven = new Button();
@@ -57,7 +57,7 @@
 			buttonTwo = new Button();
 			buttonThree = new Button();
 			panelDisplay = new Panel();
-			panelButtons.SuspendLayout();
+			panelControls.SuspendLayout();
 			panelDisplay.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -69,7 +69,7 @@
 			labelHistory.Location = new Point(10, 9);
 			labelHistory.Name = "labelHistory";
 			labelHistory.Size = new Size(378, 72);
-			labelHistory.TabIndex = 1;
+			labelHistory.TabIndex = 10;
 			labelHistory.Text = "labelHistory";
 			// 
 			// labelEntry
@@ -80,42 +80,42 @@
 			labelEntry.Location = new Point(10, 91);
 			labelEntry.Name = "labelEntry";
 			labelEntry.Size = new Size(378, 39);
-			labelEntry.TabIndex = 0;
+			labelEntry.TabIndex = 10;
 			labelEntry.Text = "labelEntry";
 			labelEntry.TextAlign = ContentAlignment.TopRight;
 			// 
-			// panelButtons
+			// panelControls
 			// 
-			panelButtons.Controls.Add(labelMemoryValue);
-			panelButtons.Controls.Add(labelMemoryMinus);
-			panelButtons.Controls.Add(labelMemoryPlus);
-			panelButtons.Controls.Add(labelMemoryClear);
-			panelButtons.Controls.Add(labelMemoryRecall);
-			panelButtons.Controls.Add(buttonClearEntry);
-			panelButtons.Controls.Add(buttonClear);
-			panelButtons.Controls.Add(buttonBackspace);
-			panelButtons.Controls.Add(buttonPlus);
-			panelButtons.Controls.Add(buttonEquals);
-			panelButtons.Controls.Add(buttonDivide);
-			panelButtons.Controls.Add(buttonMultiply);
-			panelButtons.Controls.Add(buttonMinus);
-			panelButtons.Controls.Add(buttonComma);
-			panelButtons.Controls.Add(buttonZero);
-			panelButtons.Controls.Add(buttonSeven);
-			panelButtons.Controls.Add(buttonEight);
-			panelButtons.Controls.Add(buttonNine);
-			panelButtons.Controls.Add(buttonFour);
-			panelButtons.Controls.Add(buttonFive);
-			panelButtons.Controls.Add(buttonSix);
-			panelButtons.Controls.Add(buttonOne);
-			panelButtons.Controls.Add(buttonTwo);
-			panelButtons.Controls.Add(buttonThree);
-			panelButtons.Dock = DockStyle.Bottom;
-			panelButtons.Location = new Point(0, 134);
-			panelButtons.Margin = new Padding(4);
-			panelButtons.Name = "panelButtons";
-			panelButtons.Size = new Size(402, 400);
-			panelButtons.TabIndex = 0;
+			panelControls.Controls.Add(labelMemoryValue);
+			panelControls.Controls.Add(labelMemorySubtract);
+			panelControls.Controls.Add(labelMemoryAdd);
+			panelControls.Controls.Add(labelMemoryClear);
+			panelControls.Controls.Add(labelMemoryRecall);
+			panelControls.Controls.Add(buttonClearEntry);
+			panelControls.Controls.Add(buttonClear);
+			panelControls.Controls.Add(buttonBackspace);
+			panelControls.Controls.Add(buttonAdd);
+			panelControls.Controls.Add(buttonEquals);
+			panelControls.Controls.Add(buttonDivide);
+			panelControls.Controls.Add(buttonMultiply);
+			panelControls.Controls.Add(buttonSubtract);
+			panelControls.Controls.Add(buttonComma);
+			panelControls.Controls.Add(buttonZero);
+			panelControls.Controls.Add(buttonSeven);
+			panelControls.Controls.Add(buttonEight);
+			panelControls.Controls.Add(buttonNine);
+			panelControls.Controls.Add(buttonFour);
+			panelControls.Controls.Add(buttonFive);
+			panelControls.Controls.Add(buttonSix);
+			panelControls.Controls.Add(buttonOne);
+			panelControls.Controls.Add(buttonTwo);
+			panelControls.Controls.Add(buttonThree);
+			panelControls.Dock = DockStyle.Bottom;
+			panelControls.Location = new Point(0, 134);
+			panelControls.Margin = new Padding(4);
+			panelControls.Name = "panelControls";
+			panelControls.Size = new Size(402, 400);
+			panelControls.TabIndex = 0;
 			// 
 			// labelMemoryValue
 			// 
@@ -124,32 +124,32 @@
 			labelMemoryValue.Location = new Point(38, 2);
 			labelMemoryValue.Name = "labelMemoryValue";
 			labelMemoryValue.Size = new Size(156, 21);
-			labelMemoryValue.TabIndex = 23;
+			labelMemoryValue.TabIndex = 10;
 			labelMemoryValue.Text = "labelMemoryValue";
 			// 
-			// labelMemoryMinus
+			// labelMemorySubtract
 			// 
-			labelMemoryMinus.Anchor = AnchorStyles.None;
-			labelMemoryMinus.AutoSize = true;
-			labelMemoryMinus.Location = new Point(330, 32);
-			labelMemoryMinus.Name = "labelMemoryMinus";
-			labelMemoryMinus.Size = new Size(31, 21);
-			labelMemoryMinus.TabIndex = 22;
-			labelMemoryMinus.Tag = "Memory";
-			labelMemoryMinus.Text = "M-";
-			labelMemoryMinus.Click += ControlClicked;
+			labelMemorySubtract.Anchor = AnchorStyles.None;
+			labelMemorySubtract.AutoSize = true;
+			labelMemorySubtract.Location = new Point(330, 32);
+			labelMemorySubtract.Name = "labelMemorySubtract";
+			labelMemorySubtract.Size = new Size(31, 21);
+			labelMemorySubtract.TabIndex = 10;
+			labelMemorySubtract.Tag = "Memory";
+			labelMemorySubtract.Text = "M-";
+			labelMemorySubtract.Click += ControlClicked;
 			// 
-			// labelMemoryPlus
+			// labelMemoryAdd
 			// 
-			labelMemoryPlus.Anchor = AnchorStyles.None;
-			labelMemoryPlus.AutoSize = true;
-			labelMemoryPlus.Location = new Point(231, 32);
-			labelMemoryPlus.Name = "labelMemoryPlus";
-			labelMemoryPlus.Size = new Size(36, 21);
-			labelMemoryPlus.TabIndex = 21;
-			labelMemoryPlus.Tag = "Memory";
-			labelMemoryPlus.Text = "M+";
-			labelMemoryPlus.Click += ControlClicked;
+			labelMemoryAdd.Anchor = AnchorStyles.None;
+			labelMemoryAdd.AutoSize = true;
+			labelMemoryAdd.Location = new Point(231, 32);
+			labelMemoryAdd.Name = "labelMemoryAdd";
+			labelMemoryAdd.Size = new Size(36, 21);
+			labelMemoryAdd.TabIndex = 10;
+			labelMemoryAdd.Tag = "Memory";
+			labelMemoryAdd.Text = "M+";
+			labelMemoryAdd.Click += ControlClicked;
 			// 
 			// labelMemoryClear
 			// 
@@ -159,7 +159,7 @@
 			labelMemoryClear.Location = new Point(38, 32);
 			labelMemoryClear.Name = "labelMemoryClear";
 			labelMemoryClear.Size = new Size(35, 21);
-			labelMemoryClear.TabIndex = 20;
+			labelMemoryClear.TabIndex = 10;
 			labelMemoryClear.Tag = "Memory";
 			labelMemoryClear.Text = "MC";
 			labelMemoryClear.Click += ControlClicked;
@@ -172,7 +172,7 @@
 			labelMemoryRecall.Location = new Point(133, 32);
 			labelMemoryRecall.Name = "labelMemoryRecall";
 			labelMemoryRecall.Size = new Size(35, 21);
-			labelMemoryRecall.TabIndex = 19;
+			labelMemoryRecall.TabIndex = 10;
 			labelMemoryRecall.Tag = "Memory";
 			labelMemoryRecall.Text = "MR";
 			labelMemoryRecall.Click += ControlClicked;
@@ -187,7 +187,7 @@
 			buttonClearEntry.Location = new Point(10, 66);
 			buttonClearEntry.Name = "buttonClearEntry";
 			buttonClearEntry.Size = new Size(90, 60);
-			buttonClearEntry.TabIndex = 18;
+			buttonClearEntry.TabIndex = 10;
 			buttonClearEntry.Tag = "Clear";
 			buttonClearEntry.Text = "CE";
 			buttonClearEntry.UseVisualStyleBackColor = false;
@@ -203,7 +203,7 @@
 			buttonClear.Location = new Point(106, 66);
 			buttonClear.Name = "buttonClear";
 			buttonClear.Size = new Size(90, 60);
-			buttonClear.TabIndex = 17;
+			buttonClear.TabIndex = 10;
 			buttonClear.Tag = "Clear";
 			buttonClear.Text = "C";
 			buttonClear.UseVisualStyleBackColor = false;
@@ -220,26 +220,26 @@
 			buttonBackspace.Location = new Point(202, 66);
 			buttonBackspace.Name = "buttonBackspace";
 			buttonBackspace.Size = new Size(90, 60);
-			buttonBackspace.TabIndex = 16;
+			buttonBackspace.TabIndex = 10;
 			buttonBackspace.Tag = "Clear";
 			buttonBackspace.UseVisualStyleBackColor = false;
 			buttonBackspace.Click += ControlClicked;
 			// 
-			// buttonPlus
+			// buttonAdd
 			// 
-			buttonPlus.Anchor = AnchorStyles.None;
-			buttonPlus.BackColor = Color.White;
-			buttonPlus.FlatAppearance.BorderSize = 0;
-			buttonPlus.FlatStyle = FlatStyle.Flat;
-			buttonPlus.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-			buttonPlus.Location = new Point(298, 264);
-			buttonPlus.Name = "buttonPlus";
-			buttonPlus.Size = new Size(90, 60);
-			buttonPlus.TabIndex = 15;
-			buttonPlus.Tag = "Operation";
-			buttonPlus.Text = "+";
-			buttonPlus.UseVisualStyleBackColor = false;
-			buttonPlus.Click += ControlClicked;
+			buttonAdd.Anchor = AnchorStyles.None;
+			buttonAdd.BackColor = Color.White;
+			buttonAdd.FlatAppearance.BorderSize = 0;
+			buttonAdd.FlatStyle = FlatStyle.Flat;
+			buttonAdd.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+			buttonAdd.Location = new Point(298, 264);
+			buttonAdd.Name = "buttonAdd";
+			buttonAdd.Size = new Size(90, 60);
+			buttonAdd.TabIndex = 10;
+			buttonAdd.Tag = "Operation";
+			buttonAdd.Text = "+";
+			buttonAdd.UseVisualStyleBackColor = false;
+			buttonAdd.Click += ControlClicked;
 			// 
 			// buttonEquals
 			// 
@@ -251,7 +251,7 @@
 			buttonEquals.Location = new Point(202, 330);
 			buttonEquals.Name = "buttonEquals";
 			buttonEquals.Size = new Size(186, 60);
-			buttonEquals.TabIndex = 14;
+			buttonEquals.TabIndex = 0;
 			buttonEquals.Tag = "Operation";
 			buttonEquals.Text = "=";
 			buttonEquals.UseVisualStyleBackColor = false;
@@ -267,7 +267,7 @@
 			buttonDivide.Location = new Point(298, 66);
 			buttonDivide.Name = "buttonDivide";
 			buttonDivide.Size = new Size(90, 60);
-			buttonDivide.TabIndex = 13;
+			buttonDivide.TabIndex = 10;
 			buttonDivide.Tag = "Operation";
 			buttonDivide.Text = "/";
 			buttonDivide.UseVisualStyleBackColor = false;
@@ -283,27 +283,27 @@
 			buttonMultiply.Location = new Point(298, 132);
 			buttonMultiply.Name = "buttonMultiply";
 			buttonMultiply.Size = new Size(90, 60);
-			buttonMultiply.TabIndex = 12;
+			buttonMultiply.TabIndex = 10;
 			buttonMultiply.Tag = "Operation";
 			buttonMultiply.Text = "*";
 			buttonMultiply.UseVisualStyleBackColor = false;
 			buttonMultiply.Click += ControlClicked;
 			// 
-			// buttonMinus
+			// buttonSubtract
 			// 
-			buttonMinus.Anchor = AnchorStyles.None;
-			buttonMinus.BackColor = Color.White;
-			buttonMinus.FlatAppearance.BorderSize = 0;
-			buttonMinus.FlatStyle = FlatStyle.Flat;
-			buttonMinus.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
-			buttonMinus.Location = new Point(298, 198);
-			buttonMinus.Name = "buttonMinus";
-			buttonMinus.Size = new Size(90, 60);
-			buttonMinus.TabIndex = 11;
-			buttonMinus.Tag = "Operation";
-			buttonMinus.Text = "-";
-			buttonMinus.UseVisualStyleBackColor = false;
-			buttonMinus.Click += ControlClicked;
+			buttonSubtract.Anchor = AnchorStyles.None;
+			buttonSubtract.BackColor = Color.White;
+			buttonSubtract.FlatAppearance.BorderSize = 0;
+			buttonSubtract.FlatStyle = FlatStyle.Flat;
+			buttonSubtract.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 238);
+			buttonSubtract.Location = new Point(298, 198);
+			buttonSubtract.Name = "buttonSubtract";
+			buttonSubtract.Size = new Size(90, 60);
+			buttonSubtract.TabIndex = 10;
+			buttonSubtract.Tag = "Operation";
+			buttonSubtract.Text = "-";
+			buttonSubtract.UseVisualStyleBackColor = false;
+			buttonSubtract.Click += ControlClicked;
 			// 
 			// buttonComma
 			// 
@@ -331,7 +331,7 @@
 			buttonZero.Location = new Point(10, 330);
 			buttonZero.Name = "buttonZero";
 			buttonZero.Size = new Size(90, 60);
-			buttonZero.TabIndex = 9;
+			buttonZero.TabIndex = 10;
 			buttonZero.Tag = "Number";
 			buttonZero.Text = "0";
 			buttonZero.UseVisualStyleBackColor = false;
@@ -347,7 +347,7 @@
 			buttonSeven.Location = new Point(10, 132);
 			buttonSeven.Name = "buttonSeven";
 			buttonSeven.Size = new Size(90, 60);
-			buttonSeven.TabIndex = 8;
+			buttonSeven.TabIndex = 10;
 			buttonSeven.Tag = "Number";
 			buttonSeven.Text = "7";
 			buttonSeven.UseVisualStyleBackColor = false;
@@ -363,7 +363,7 @@
 			buttonEight.Location = new Point(106, 132);
 			buttonEight.Name = "buttonEight";
 			buttonEight.Size = new Size(90, 60);
-			buttonEight.TabIndex = 7;
+			buttonEight.TabIndex = 10;
 			buttonEight.Tag = "Number";
 			buttonEight.Text = "8";
 			buttonEight.UseVisualStyleBackColor = false;
@@ -379,7 +379,7 @@
 			buttonNine.Location = new Point(202, 132);
 			buttonNine.Name = "buttonNine";
 			buttonNine.Size = new Size(90, 60);
-			buttonNine.TabIndex = 6;
+			buttonNine.TabIndex = 10;
 			buttonNine.Tag = "Number";
 			buttonNine.Text = "9";
 			buttonNine.UseVisualStyleBackColor = false;
@@ -395,7 +395,7 @@
 			buttonFour.Location = new Point(10, 198);
 			buttonFour.Name = "buttonFour";
 			buttonFour.Size = new Size(90, 60);
-			buttonFour.TabIndex = 5;
+			buttonFour.TabIndex = 10;
 			buttonFour.Tag = "Number";
 			buttonFour.Text = "4";
 			buttonFour.UseVisualStyleBackColor = false;
@@ -411,7 +411,7 @@
 			buttonFive.Location = new Point(106, 198);
 			buttonFive.Name = "buttonFive";
 			buttonFive.Size = new Size(90, 60);
-			buttonFive.TabIndex = 4;
+			buttonFive.TabIndex = 10;
 			buttonFive.Tag = "Number";
 			buttonFive.Text = "5";
 			buttonFive.UseVisualStyleBackColor = false;
@@ -427,7 +427,7 @@
 			buttonSix.Location = new Point(202, 198);
 			buttonSix.Name = "buttonSix";
 			buttonSix.Size = new Size(90, 60);
-			buttonSix.TabIndex = 3;
+			buttonSix.TabIndex = 10;
 			buttonSix.Tag = "Number";
 			buttonSix.Text = "6";
 			buttonSix.UseVisualStyleBackColor = false;
@@ -443,7 +443,7 @@
 			buttonOne.Location = new Point(10, 264);
 			buttonOne.Name = "buttonOne";
 			buttonOne.Size = new Size(90, 60);
-			buttonOne.TabIndex = 2;
+			buttonOne.TabIndex = 10;
 			buttonOne.Tag = "Number";
 			buttonOne.Text = "1";
 			buttonOne.UseVisualStyleBackColor = false;
@@ -459,7 +459,7 @@
 			buttonTwo.Location = new Point(106, 264);
 			buttonTwo.Name = "buttonTwo";
 			buttonTwo.Size = new Size(90, 60);
-			buttonTwo.TabIndex = 1;
+			buttonTwo.TabIndex = 10;
 			buttonTwo.Tag = "Number";
 			buttonTwo.Text = "2";
 			buttonTwo.UseVisualStyleBackColor = false;
@@ -475,7 +475,7 @@
 			buttonThree.Location = new Point(202, 264);
 			buttonThree.Name = "buttonThree";
 			buttonThree.Size = new Size(90, 60);
-			buttonThree.TabIndex = 0;
+			buttonThree.TabIndex = 10;
 			buttonThree.Tag = "Number";
 			buttonThree.Text = "3";
 			buttonThree.UseVisualStyleBackColor = false;
@@ -497,22 +497,24 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(402, 534);
 			Controls.Add(panelDisplay);
-			Controls.Add(panelButtons);
+			Controls.Add(panelControls);
 			Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 238);
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			KeyPreview = true;
 			Margin = new Padding(4);
 			MinimumSize = new Size(418, 573);
 			Name = "MainForm";
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Kalkulačka";
-			panelButtons.ResumeLayout(false);
-			panelButtons.PerformLayout();
+			KeyDown += KeyPressed;
+			panelControls.ResumeLayout(false);
+			panelControls.PerformLayout();
 			panelDisplay.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
 		#endregion
-		private Panel panelButtons;
+		private Panel panelControls;
 		private Button buttonThree;
 		private Button buttonComma;
 		private Button buttonZero;
@@ -524,16 +526,16 @@
 		private Button buttonSix;
 		private Button buttonOne;
 		private Button buttonTwo;
-		private Button buttonPlus;
+		private Button buttonAdd;
 		private Button buttonEquals;
 		private Button buttonDivide;
 		private Button buttonMultiply;
-		private Button buttonMinus;
+		private Button buttonSubtract;
 		private Button buttonClearEntry;
 		private Button buttonClear;
 		private Button buttonBackspace;
-		private Label labelMemoryMinus;
-		private Label labelMemoryPlus;
+		private Label labelMemorySubtract;
+		private Label labelMemoryAdd;
 		private Label labelMemoryClear;
 		private Label labelMemoryRecall;
 		private Label labelHistory;

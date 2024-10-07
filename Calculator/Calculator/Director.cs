@@ -28,7 +28,7 @@ namespace Calculator
 			private set { memoryText = value; mainForm.UpdateMemory(memoryText); }
 		}
 
-		private string lastOperation;
+		private Operation? lastOperation;
 		private ActionType lastAction;
 
 		private bool resultDisplayed;
@@ -38,115 +38,118 @@ namespace Calculator
 
 		public Director(MainForm mainForm)
 		{
-			calculation = new Calculation();
 			this.mainForm = mainForm;
+			calculation = new Calculation();
 
 			EntryText = "0";
 			HistoryText = string.Empty;
 			MemoryText = string.Empty;
 
-			lastOperation = string.Empty;
+			lastOperation = null;
 			lastAction = ActionType.None;
 
 			resultDisplayed = false;
 		}
 
 		/// <summary>
-		/// Předává potřebné informace o ovládacím prvku metodě <see cref="RedirectAction(ActionType, string)"/>
+		/// Předává potřebné informace o ovládacím prvku metodě <see cref="RedirectAction(ActionType, Enum)"/>.
 		/// </summary>
 		/// <param name="control"></param>
 		public void Action(Control control)
 		{
-			ActionType actionType = ActionType.None;
-			string actionText = string.Empty;
+			ActionType action = CategoryManager.GetControlActionType(control);
+			Enum category = CategoryManager.GetControlCategory(control);
 
-			actionType = CategoryManager.ControlActionType(control);
+			RedirectAction(action, category);
+		}
+		/// <summary>
+		/// Předává potřebné informace o stisknuté klávese metodě <see cref="RedirectAction(ActionType, Enum)"/>.
+		/// </summary>
+		/// <param name="key"></param>
+		public void Action(Keys key)
+		{
+			ActionType action = CategoryManager.GetKeyActionType(key);
+			Enum category = CategoryManager.GetKeyCategory(key);
 
-			if (control is Button)
-				actionText = ((Button)control).Text;
-
-			if (control is Label)
-				actionText = ((Label)control).Text;
-
-			RedirectAction(actionType, actionText);
+			RedirectAction(action, category);
 		}
 
 		/// <summary>
 		/// Volá jednu ze 4 hlavních metod kalkulačky.<br/>
 		/// Rovněž uchovává údaj o typu poslední provedené akce.
 		/// </summary>
-		/// <param name="actionType"></param>
-		/// <param name="actionText"></param>
-		private void RedirectAction(ActionType actionType, string actionText)
+		/// <param name="action"></param>
+		/// <param name="category"></param>
+		private void RedirectAction(ActionType action, Enum category)
 		{
-			if (calculation.Finished && (actionType == ActionType.Operation || actionType == ActionType.Number))
+			if (calculation.Finished && (action == ActionType.Operation || action == ActionType.Number))
 			{
 				Reset();
 			}
 
-			switch (actionType)
+			switch (action)
 			{
 				case ActionType.Number:
-					ActionNumber(actionText);
+					ActionNumber((Number)category);
 					break;
 
 				case ActionType.Operation:
-					ActionOperation(actionText);
+					ActionOperation((Operation)category);
 					break;
 
-				case ActionType.Clear:
-					ActionClear(actionText);
+				case ActionType.Function:
+					ActionFunction((Function)category);
 					break;
 
 				case ActionType.Memory:
-					ActionMemory(actionText);
+					ActionMemory((Memory)category);
 					mainForm.ToggleMemoryLabels(calculation.MemoryStored);
 					break;
 			}
 
-			lastAction = actionType;
+			lastAction = action;
 		}
 
 		/// <summary>
 		/// Provádí zápis čísla uživatelem na displej.<br/>
 		/// Metoda je volána při stisknutí ovládacího prvku typu <see cref="ActionType.Number"/>.
 		/// </summary>
-		/// <param name="number">Přijatelné hodnoty: "0"-"9" a ","</param>
-		private void ActionNumber(string number)
+		/// <param name="number"></param>
+		private void ActionNumber(Number number)
 		{
 			if (resultDisplayed)
 			{
 				EntryText = "0";
 				resultDisplayed = false;
 			}
-			if (number != "," && EntryText == "0")
+			if (number != Number.Comma && EntryText == "0")
 			{
 				EntryText = string.Empty;
 			}
-			if (number == ",")
+			if (number == Number.Comma)
 			{
 				if (EntryText.Contains(","))
 					return;
 			}
 
-			EntryText += number;
+			EntryText += TextManager.ToString(number);
 		}
 
 		/// <summary>
 		/// Předává aktuální číslo na displeji a zvolenou matematickou operaci třídě <see cref="Calculation"/>.<br/>
 		/// Metoda je volána při stisknutí ovládacího prvku typu <see cref="ActionType.Operation"/>.
 		/// </summary>
-		/// <param name="operation">Přijatelné hodnoty: "+", "-", "*", "/", "="</param>
-		private void ActionOperation(string operation)
+		/// <param name="operation"></param>
+		private void ActionOperation(Operation operation)
 		{
-			if (lastAction == ActionType.Operation && operation != "=")
+			if (lastAction == ActionType.Operation && operation != Operation.Equals)
 			{
 				calculation.ChangeOperation(operation);
 				lastOperation = operation;
 
 				HistoryText = calculation.History;
 			}
-			else if (lastOperation == "/" && (EntryText == "0" || EntryText == "0,"))
+			else if (lastOperation == Operation.Divide && (EntryText == "0" || EntryText == "0,"))
 			{
 				MessageBox.Show("Nulou nelze dělit!", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
@@ -164,25 +167,23 @@ namespace Calculator
 
 		/// <summary>
 		/// Obsluha tlačítek CE (ClearEntry), C (Clear) a Backspace.<br/>
-		/// Metoda je volána při stisknutí ovládacího prvku typu <see cref="ActionType.Clear"/>.
+		/// Metoda je volána při stisknutí ovládacího prvku typu <see cref="ActionType.Function"/>.
 		/// </summary>
-		/// <param name="controlText">Přijatelné hodnoty: "CE", "C", ""(prázdný řetězec pro Backspace)</param>
-		private void ActionClear(string controlText)
+		/// <param name="function"></param>
+		private void ActionFunction(Function function)
 		{
-			switch (controlText)
+			switch (function)
 			{
-				//Button Clear Entry
-				case "CE":
+				case Function.ClearEntry:
 					EntryText = "0";
 					break;
-				//Button Clear
-				case "C":
+
+				case Function.Clear:
 					EntryText = "0";
 					Reset();
 					break;
-				//Button Backspace
-				//tento ovládací prvek jako jediný nemá nastavenou vlastnost Text, ale obsahuje obrázek.
-				case "":
+
+				case Function.Backspace:
 					if (resultDisplayed)
 					{
 						break;
@@ -203,23 +204,26 @@ namespace Calculator
 		/// Obsluha ovládacích prvků pro práci s pamětí kalkulačky.<br/>
 		/// Metoda je volána při stisknutí ovládacího prvku typu <see cref="ActionType.Memory"/>
 		/// </summary>
-		/// <param name="controlText">Přijatelné hodnoty: "M+", "M-", "MC", "MR"</param>
-		private void ActionMemory(string controlText)
+		/// <param name="memory"></param>
+		private void ActionMemory(Memory memory)
 		{
-			switch (controlText)
+			switch (memory)
 			{
-				case "M+":
+				case Memory.Add:
 					calculation.AddToMemory(double.Parse(EntryText));
 					MemoryText = "M " + calculation.Memory;
 					break;
-				case "M-":
+
+				case Memory.Subtract:
 					calculation.AddToMemory(-double.Parse(EntryText));
 					MemoryText = "M " + calculation.Memory;
 					break;
-				case "MC":
+
+				case Memory.Clear:
 					calculation.ClearMemory();
 					break;
-				case "MR":
+
+				case Memory.Recall:
 					EntryText = calculation.Memory.ToString();
 					resultDisplayed = false;
 					break;
@@ -234,7 +238,7 @@ namespace Calculator
 			calculation.NewCalculation();
 			HistoryText = string.Empty;
 
-			lastOperation = string.Empty;
+			lastOperation = null;
 			lastAction = ActionType.None;
 		}
 	}

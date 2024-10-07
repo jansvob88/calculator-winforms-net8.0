@@ -10,7 +10,7 @@ namespace Calculator
 	{
 		private double? firstNumber;
 		private double? secondNumber;
-		private string activeOperation;
+		private Operation? activeOperation;
 
 		public double? Result { get; private set; }
 		public bool Finished { get; private set; }
@@ -26,14 +26,14 @@ namespace Calculator
 		}
 
 		/// <summary>
-		/// Vymaže údaje o aktuálně prováděném výpočtu.<br/>
+		/// Zahájí novou kalkulaci.<br/>
 		/// Paměť <see cref="Memory"/> zůstane nedotčena.
 		/// </summary>
 		public void NewCalculation()
 		{
 			firstNumber = null;
 			secondNumber = null;
-			activeOperation = string.Empty;
+			activeOperation = null;
 			Result = null;
 			Finished = false;
 			History = string.Empty;
@@ -43,33 +43,36 @@ namespace Calculator
 		/// Při prvním použití je <paramref name="number"/> uloženo jako firstNumber a <paramref name="operation"/> jako activeOperation.<br/>
 		/// Při každém dalším použití je <paramref name="number"/> uloženo jako secondNumber, volá se metoda <see cref="Calculate"/>,
 		/// firstNumber je nahrazeno výsledkem kalkulace a activeOperation je nahrazena nově přijatým parametrem <paramref name="operation"/>.<br/>
-		/// Tato sekvence se opakuje dokud v parametru <paramref name="operation"/> nepřijde operace "=", čímž je aktuální výpočet ukončen
+		/// Tato sekvence se opakuje dokud v parametru <paramref name="operation"/> nepřijde operace <see cref="Operation.Equals"/>, čímž je aktuální výpočet ukončen
 		/// a <see langword="bool"/> <see cref="Finished"/> je nastaven na <see langword="true"/>.
 		/// </summary>
 		/// <param name="number"></param>
 		/// <param name="operation"></param>
-		public void Next(double number, string operation)
+		public void Next(double number, Operation operation)
 		{
-			History += number + " " + operation + " ";
-
-			if (firstNumber == null)
+			if (!Finished)
 			{
-				firstNumber = number;
-				Result = number;
-			}
-			else
-			{
-				secondNumber = number;
-				Calculate();
-				firstNumber = Result;
-			}
+				History += number + " " + TextManager.ToString(operation) + " ";
 
-			activeOperation = operation;
+				if (firstNumber == null)
+				{
+					firstNumber = number;
+					Result = number;
+				}
+				else
+				{
+					secondNumber = number;
+					Calculate();
+					firstNumber = Result;
+				}
 
-			if (operation == "=")
-			{
-				History += Result;
-				Finished = true;
+				activeOperation = operation;
+
+				if (operation == Operation.Equals)
+				{
+					History += Result;
+					Finished = true;
+				}
 			}
 		}
 
@@ -77,11 +80,14 @@ namespace Calculator
 		/// Změní hodnotu <see cref="activeOperation"/>.
 		/// </summary>
 		/// <param name="operation"></param>
-		public void ChangeOperation(string operation)
+		public void ChangeOperation(Operation operation)
 		{
-			activeOperation = operation;
-			History = History.Remove(History.Length - 2);
-			History += operation + " ";
+			if (!Finished)
+			{
+				History = History.Remove(History.Length - 1 - TextManager.ToString(activeOperation).Length);
+				History += TextManager.ToString(operation) + " ";
+				activeOperation = operation;
+			}
 		}
 
 		/// <summary>
@@ -112,16 +118,16 @@ namespace Calculator
 		{
 			switch (activeOperation)
 			{
-				case "+":
+				case Operation.Add:
 					Result = firstNumber + secondNumber;
 					break;
-				case "-":
+				case Operation.Subtract:
 					Result = firstNumber - secondNumber;
 					break;
-				case "*":
+				case Operation.Multiply:
 					Result = firstNumber * secondNumber;
 					break;
-				case "/":
+				case Operation.Divide:
 					if (secondNumber != 0)
 						Result = firstNumber / secondNumber;
 					break;
